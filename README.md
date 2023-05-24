@@ -9,6 +9,8 @@ Language : Java 17<br/>
 Web Framework : Spring Boot 3.1.0<br/>
 DB : MySQL 5.7<br/>
 Version Controller : Github<br/>
+Server Base URL : /api/v1
+Port : 8080
 <br/><br/><br/><br/>
 
 
