@@ -1,0 +1,91 @@
+spring:
+  datasource:
+    url: jdbc:mysql://${technomad_db.endpoint}:${technomad_db.port}/${technomad_db.db_name}?${technomad_db.option}
+    pool-name: technomad-dbcp
+    minimum-idle: 5
+    maximum-pool-size: 10
+    connection-timeout: 3000
+    idle-timeout: 600000
+    max-lifetime: 1800000
+    transaction-isolation: TRANSACTION_READ_COMMITTED
+  jpa:
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+        id.new_generator_mappings: false
+        metadata_builder_contributor: technomad.api.server.technomad.config.jpa.CustomQueryDslDialect
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        hbm2ddl:
+          # none : ?? ??? ?? ?? ???? ???.
+          # create-only : ??????? ?? ????.
+          # drop : ??????? drop ??.
+          # create : ??????? drop ? ?, ??????? ?? ????.(?????? drop + create-only? ??)
+          # create-drop : SessionFactory? ??? ? ???? drop?? ?????, SessionFactory? ??? ?? ???? drop ??.
+          # validate : ?????? ???? ?? ??.
+          # update : ?????? ???? ?? ??.
+          auto: create
+  mvc:
+    throw-exception-if-no-handler-found: true
+    dispatch-options-request: true
+  servlet:
+    multipart:
+      max-file-size: 15MB
+      max-request-size: 15MB
+  main:
+    allow-bean-definition-overriding: true
+
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+    context-path: '/api/v1'
+
+springdoc:
+  swagger-ui:
+    enabled: true # swagger ui ???? (?? ???? ??? default? true)
+    path: '/swagger-ui.html'
+  version: 'v1' # API ?? ??
+  default-consumes-media-type: 'application/json' # ?? consume media type
+  default-produces-media-type: 'application/json' # ?? produce media type
+  model-and-view-allowed: true # ModelAndView ??
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    username: developer
+    password: 1234
+    minimum-idle: 10
+    maximum-pool-size: 10
+    driver-class-name: com.mysql.jdbc.Driver
+    hikari:
+      leak-detection-threshold: 2000
+  jpa:
+    properties:
+      hibernate:
+        format_sql: false
+        show_sql: false
+jwt:
+  secret: 'VlwEyVBsYt9V7zq57TejMnVtechnocfPQye08f7MGVA9XkHa'
+  accessTokenValidationSecond: 30000
+  refreshTokenValidationSecond: 30000
+
+technomad_db:
+  endpoint: localhost
+  port: 3306
+  db_name: technomad
+  option: useSSL=false&connectTimeout=2000&socketTimeout=600000&useUnicode=true&characterEncoding=UTF-8&rewriteBatchedStatements=true
+
+
+# SQL ?? ?????? ??? ??
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+      multiline: true
