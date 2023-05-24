@@ -4,7 +4,7 @@
 <br/><br/><br/><br/>
 
 
-## 🤘 Server 스팩
+## 🤘 Server Spec
 Language: Java 17<br/>
 Web Framework: Spring Boot 3.1.0<br/>
 DB: MySQL 5.7<br/>
