@@ -1,11 +1,9 @@
 package technomad.api.server.technomad.core.code;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import lombok.Getter;
 
-public enum ErrorCode {
+@Getter
+public enum ErrorCode implements BaseTypeCodeInterface{
 
     SUCCESS                     ("2000", "OK"),
     SYSTEM_ERROR                ("1001", "시스템 오류"),
@@ -22,34 +20,5 @@ public enum ErrorCode {
     ErrorCode(String code, String description) {
         this.code = code;
         this.description = description;
-    }
-
-    public String getCode() {
-        return code;
-    }
-    public String getDescription() {
-        return description;
-    }
-
-    public static String getDescription(String code) {
-        ErrorCode[] typeCodeList = ErrorCode.values();
-        for(ErrorCode typeCode : typeCodeList){
-            if(typeCode.getCode().equals(code)){
-                return typeCode.getDescription();
-            }
-        }
-        return null;
-    }
-
-    public static List<Map<String, String>> getCodeList(){
-        ErrorCode[] typeCodeList = ErrorCode.values();
-        List<Map<String, String>> codeList = new ArrayList<>();
-        for(ErrorCode typeCode : typeCodeList){
-            Map<String, String> code = new ConcurrentHashMap<>();
-            code.put("code", typeCode.getCode());
-            code.put("description", typeCode.getDescription());
-            codeList.add(code);
-        }
-        return codeList;
     }
 }

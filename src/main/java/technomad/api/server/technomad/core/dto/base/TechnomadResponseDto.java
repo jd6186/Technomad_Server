@@ -1,14 +1,14 @@
 package technomad.api.server.technomad.core.dto.base;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
-
-import jakarta.validation.constraints.NotBlank;
+import org.springframework.http.ResponseEntity;
 import technomad.api.server.technomad.core.code.ErrorCode;
 
 @Getter
-public class BaseResponseDto<T> {
+public class TechnomadResponseDto<T> {
     @Schema(description = "응답 데이터", example = "응답 결과 데이터")
     @NotBlank
     private final T responseData;
@@ -22,25 +22,28 @@ public class BaseResponseDto<T> {
     private final String errorReason;
 
     @Builder
-    public BaseResponseDto(T responseData, String errorCode, String errorReason) {
+    public TechnomadResponseDto(T responseData, String errorCode, String errorReason) {
         this.responseData = responseData;
         this.errorCode = errorCode;
         this.errorReason = errorReason;
     }
 
-    public static BaseResponseDto of(Object responseData){
-        return BaseResponseDto.builder()
+    public static <T> ResponseEntity<TechnomadResponseDto<T>> of(T responseData){
+        TechnomadResponseDto response =  TechnomadResponseDto.builder()
                 .responseData(responseData)
                 .errorCode(ErrorCode.SUCCESS.getCode())
                 .errorReason(ErrorCode.SUCCESS.getDescription())
                 .build();
+        return ResponseEntity.ok(response);
+
     }
 
-    public static BaseResponseDto of(Object responseData, ErrorCode indistAdminApiErrorCode){
-        return BaseResponseDto.builder()
+    public static <T> ResponseEntity<TechnomadResponseDto<T>> of(T responseData, ErrorCode indistAdminApiErrorCode){
+        TechnomadResponseDto response = TechnomadResponseDto.builder()
                 .responseData(responseData)
                 .errorCode(indistAdminApiErrorCode.getCode())
                 .errorReason(indistAdminApiErrorCode.getDescription())
                 .build();
+        return ResponseEntity.ok(response);
     }
 }

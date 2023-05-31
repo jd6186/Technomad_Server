@@ -43,10 +43,11 @@ dependencies {
 	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
 	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 
+	// 딥러닝
+	implementation 'org.deeplearning4j:deeplearning4j-core:1.0.0-M2'
 
 	// TEST
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
 }
 tasks.named('test') {
 	useJUnitPlatform()

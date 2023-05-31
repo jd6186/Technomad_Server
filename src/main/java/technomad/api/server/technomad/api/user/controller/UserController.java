@@ -10,7 +10,7 @@ import technomad.api.server.technomad.api.user.dto.entity.UserEntity;
 import technomad.api.server.technomad.api.user.dto.request.UserDetailRequestDto;
 import technomad.api.server.technomad.api.user.dto.request.UserSearchRequestDto;
 import technomad.api.server.technomad.api.user.service.UserService;
-import technomad.api.server.technomad.core.dto.base.BaseResponseDto;
+import technomad.api.server.technomad.core.dto.base.TechnomadResponseDto;
 
 import java.util.List;
 
@@ -25,15 +25,15 @@ public class UserController {
 
     @Operation(summary = "getUserDetailById", description = "유저 고유번호를 통한 상세조회")
     @GetMapping()
-    public ResponseEntity<BaseResponseDto<UserEntity>> getUserDetailById(UserDetailRequestDto userDetailRequestDto){
+    public ResponseEntity<TechnomadResponseDto<UserEntity>> getUserDetailById(UserDetailRequestDto userDetailRequestDto){
         UserEntity response = userService.getUserDetailById(userDetailRequestDto.getUserId());
-        return ResponseEntity.ok(BaseResponseDto.of(response));
+        return TechnomadResponseDto.of(response);
     }
 
     @Operation(summary = "getSearchUser", description = "유저 목록 검색 조회")
     @GetMapping("/get-list")
-    public ResponseEntity<BaseResponseDto<List<UserEntity>>> getUserDetailByAccountId(UserSearchRequestDto searchRequestDto){
+    public ResponseEntity<TechnomadResponseDto<List<UserEntity>>> getUserDetailByAccountId(UserSearchRequestDto searchRequestDto){
         List<UserEntity> response = userService.getSearchUser(searchRequestDto);
-        return ResponseEntity.ok(BaseResponseDto.of(response));
+        return TechnomadResponseDto.of(response);
     }
 }

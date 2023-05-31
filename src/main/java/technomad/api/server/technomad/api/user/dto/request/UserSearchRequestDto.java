@@ -30,9 +30,10 @@ public class UserSearchRequestDto extends BasePagingRequest {
     private LocalDate endDate;
 
     @Builder
-    public UserSearchRequestDto(int pageNumber, int pageSize, Long userId, String name, LocalDate startDate, LocalDate endDate) {
-        super(pageNumber, pageSize);
+    public UserSearchRequestDto(int pageNumber, int pageSize, String orderIsDescYn, Long userId, String accountId, String name, LocalDate startDate, LocalDate endDate) {
+        super(pageNumber, pageSize, orderIsDescYn);
         this.userId = userId;
+        this.accountId = accountId;
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
