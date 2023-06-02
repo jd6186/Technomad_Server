@@ -18,9 +18,6 @@ public class UserSearchRequestDto extends BasePagingRequest {
     @Schema(description = "USER 로그인 ID", example = "user1234")
     private String accountId;
 
-    @Schema(description = "USER명", example = "정동욱")
-    private String name;
-
     @Schema(description = "검색 시작일", example = "2023-01-01")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate startDate;
@@ -30,11 +27,10 @@ public class UserSearchRequestDto extends BasePagingRequest {
     private LocalDate endDate;
 
     @Builder
-    public UserSearchRequestDto(int pageNumber, int pageSize, String orderIsDescYn, Long userId, String accountId, String name, LocalDate startDate, LocalDate endDate) {
+    public UserSearchRequestDto(int pageNumber, int pageSize, String orderIsDescYn, Long userId, String accountId, LocalDate startDate, LocalDate endDate) {
         super(pageNumber, pageSize, orderIsDescYn);
         this.userId = userId;
         this.accountId = accountId;
-        this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
     }

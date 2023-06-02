@@ -1,37 +1,50 @@
 package technomad.api.server.technomad.api.user.dto.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.Comment;
-import technomad.api.server.technomad.core.dto.entity.BaseAvailabilityEntity;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Getter
-@Entity
-@Table(name = "TB_USER", schema = "TECHNOMAD")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class UserEntity extends BaseAvailabilityEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Entity
+@Table(name = "TB_USER")
+public class UserEntity {
     @Id
-    @Comment("USER 고유번호")
     @Column(name = "USER_ID", nullable = false)
     private Long userId;
-    @Basic
-    @Comment("USER 로그인 아이디")
-    @Column(name = "ACCOUNT_ID", nullable = false, length = 100)
-    private String accountId;
-    @Basic
-    @Comment("USER 로그인 해쉬 비밀번호")
-    @Column(name = "PASSWORD", nullable = false, length = 1000)
-    private String password;
-    @Basic
-    @Comment("USER명")
-    @Column(name = "NAME", nullable = false, length = 255)
-    private String name;
 
-    @Builder
-    public UserEntity(Long userId, String accountId, String password) {
-        this.userId = userId;
-        this.accountId = accountId;
-        this.password = password;
-    }
+    @Basic
+    @Column(name = "CREATED_DATETIME", nullable = false)
+    private LocalDateTime createdDatetime;
+
+    @Basic
+    @Column(name = "UPDATED_DATETIME", nullable = false)
+    private LocalDateTime updatedDatetime;
+
+    @Basic
+    @Column(name = "FCM_TOKEN", nullable = true, columnDefinition = "text")
+    private String fcmToken;
+
+    @Basic
+    @Column(name = "USER_STATUS_CODE", nullable = false)
+    private String userStatusCode;
+
+    @Basic
+    @Column(name = "USER_IMG_FILE_ID", nullable = true)
+    private Long userImgFileId;
+
+    @Basic
+    @Column(name = "TARGET_TRASH_LITER", nullable = true)
+    private Integer targetTrashLiter;
+
+    @Basic
+    @Column(name = "NICKNAME", nullable = true)
+    private String nickname;
+
+    @Basic
+    @Column(name = "ACCOUNT_ID", nullable = false)
+    private String accountId;
 }

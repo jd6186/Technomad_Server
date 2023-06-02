@@ -46,6 +46,10 @@ dependencies {
 	// 딥러닝
 	implementation 'org.deeplearning4j:deeplearning4j-core:1.0.0-M2'
 
+	// DB Migration 지원
+	implementation 'org.flywaydb:flyway-mysql'
+	implementation 'org.flywaydb:flyway-core'
+
 	// TEST
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

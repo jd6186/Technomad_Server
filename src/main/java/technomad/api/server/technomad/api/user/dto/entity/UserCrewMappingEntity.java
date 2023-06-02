@@ -1,4 +1,4 @@
-package technomad.api.server.technomad.api.crew.dto.entity;
+package technomad.api.server.technomad.api.user.dto.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -10,9 +10,13 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "TB_CREW")
-public class CrewEntity {
+@Table(name = "TB_USER_CREW_MAPPING")
+public class UserCrewMappingEntity {
     @Id
+    @Column(name = "USER_CREW_MAPPING_ID", nullable = false)
+    private Long userCrewMappingId;
+
+    @Basic
     @Column(name = "CREW_ID", nullable = false)
     private Long crewId;
 
@@ -28,19 +32,4 @@ public class CrewEntity {
     @Column(name = "UPDATED_DATETIME", nullable = false)
     private LocalDateTime updatedDatetime;
 
-    @Basic
-    @Column(name = "CREW_NAME", length = 100, nullable = false)
-    private String crewName;
-
-    @Basic
-    @Column(name = "CREW_MAIN_IMG_FILE_ID", nullable = true)
-    private Long crewMainImgFileId;
-
-    @Basic
-    @Column(name = "CREW_CONTENT", columnDefinition = "text", nullable = false)
-    private String crewContent;
-
-    @Basic
-    @Column(name = "MAX_COUNT", nullable = false)
-    private Integer maxCount;
 }

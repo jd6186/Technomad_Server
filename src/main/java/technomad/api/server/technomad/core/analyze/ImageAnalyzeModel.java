@@ -44,6 +44,7 @@ public class ImageAnalyzeModel{
         String validationImgDirPath = "{/validation/directory}";
         DataSetIterator trainData = getImgData(trainImgDirPath);
         DataSetIterator validationData = getImgData(validationImgDirPath);
+        if(trainData == null || validationData == null) return;
 
         // 2. Convolutional Neural Network Model 생성 - CNN 모델을 생성합니다. 여기서는 ConvolutionLayer 클래스와 SubsamplingLayer 클래스, DenseLayer 클래스 등을 사용하여 모델의 레이어를 정의합니다.
         // set the hyperparameters of the CNN model
@@ -85,10 +86,15 @@ public class ImageAnalyzeModel{
     }
 
     private DataSetIterator getImgData(String dirPath) throws IOException {
-        File parentDir = new File(dirPath);
-        ImageRecordReader trainImageRecordReader = new ImageRecordReader(HEIGHT, WIDTH, CHANNELS, new ParentPathLabelGenerator());
-        trainImageRecordReader.initialize(new FileSplit(parentDir));
-        return new RecordReaderDataSetIterator(trainImageRecordReader, BATCH_SIZE, 1, NUM_LABELS);
+        try{
+            File parentDir = new File(dirPath);
+            ImageRecordReader trainImageRecordReader = new ImageRecordReader(HEIGHT, WIDTH, CHANNELS, new ParentPathLabelGenerator());
+            trainImageRecordReader.initialize(new FileSplit(parentDir));
+            return new RecordReaderDataSetIterator(trainImageRecordReader, BATCH_SIZE, 1, NUM_LABELS);
+        }catch (Exception e){
+            System.out.println("Error : " + e.getMessage());
+            return null;
+        }
     }
 
     private void createModel(MultiLayerConfiguration conf) {
