@@ -5,11 +5,13 @@ import lombok.Getter;
 
 @Getter
 public class LoginResponseDto {
+    private final Long userId;
     private final String nickName;
-    private final String targetLiter;
+    private final Integer targetLiter;
 
     @QueryProjection
-    public LoginResponseDto(String nickName, String targetLiter) {
+    public LoginResponseDto(Long userId, String nickName, Integer targetLiter) {
+        this.userId = userId;
         this.nickName = nickName;
         this.targetLiter = targetLiter;
     }

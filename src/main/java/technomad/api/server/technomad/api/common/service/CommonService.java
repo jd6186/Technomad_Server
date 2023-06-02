@@ -12,8 +12,7 @@ public class CommonService {
         this.commonQuery = commonQuery;
     }
 
-    public LoginResponseDto getUserLoginData(){
-        return commonQuery.findUserLoginData();
+    public LoginResponseDto getUserLoginData(String accountId){
+        return commonQuery.findUserLoginData(accountId);
     }
-
 }

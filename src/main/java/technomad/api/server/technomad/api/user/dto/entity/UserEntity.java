@@ -2,6 +2,7 @@ package technomad.api.server.technomad.api.user.dto.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -47,4 +48,17 @@ public class UserEntity {
     @Basic
     @Column(name = "ACCOUNT_ID", nullable = false)
     private String accountId;
+
+    @Builder
+    public UserEntity(Long userId, LocalDateTime createdDatetime, LocalDateTime updatedDatetime, String fcmToken, String userStatusCode, Long userImgFileId, Integer targetTrashLiter, String nickname, String accountId) {
+        this.userId = userId;
+        this.createdDatetime = createdDatetime;
+        this.updatedDatetime = updatedDatetime;
+        this.fcmToken = fcmToken;
+        this.userStatusCode = userStatusCode;
+        this.userImgFileId = userImgFileId;
+        this.targetTrashLiter = targetTrashLiter;
+        this.nickname = nickname;
+        this.accountId = accountId;
+    }
 }

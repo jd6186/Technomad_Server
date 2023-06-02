@@ -7,8 +7,11 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import technomad.api.server.technomad.api.common.dto.request.LoginRequestDto;
+import technomad.api.server.technomad.api.common.dto.response.LoginResponseDto;
 import technomad.api.server.technomad.api.common.service.CommonService;
-import technomad.api.server.technomad.api.user.dto.response.UserDetailResponseDto;
+import technomad.api.server.technomad.api.user.dto.entity.UserEntity;
+import technomad.api.server.technomad.api.user.service.UserCrewMappingService;
+import technomad.api.server.technomad.api.user.service.UserService;
 import technomad.api.server.technomad.core.dto.base.TechnomadResponseDto;
 
 import java.io.IOException;
@@ -18,8 +21,12 @@ import java.io.IOException;
 @RequestMapping("/common")
 public class CommonController {
     private final CommonService commonService;
-    public CommonController(CommonService commonService) {
+    private final UserService userService;
+    private final UserCrewMappingService userCrewMappingService;
+    public CommonController(CommonService commonService, UserService userService, UserCrewMappingService userCrewMappingService) {
         this.commonService = commonService;
+        this.userService = userService;
+        this.userCrewMappingService = userCrewMappingService;
     }
 
     @Operation(summary = "크루 초대 수락 API", description = "초대 수락 API - 크루 상세 페이지로 리다이렉트 필요")
@@ -30,11 +37,23 @@ public class CommonController {
         response.sendRedirect(redirect_uri);
     }
 
-    @Operation(summary = "유저 로그인", description = "회원가입 API - 링크를 통한 회원가입 여부 체크")
+    @Operation(summary = "유저 로그인", description = "로그인 API - 링크를 통한 회원가입 여부 체크")
     @PostMapping("/login")
-    public ResponseEntity<TechnomadResponseDto<UserDetailResponseDto>> login(@Valid @RequestBody LoginRequestDto loginRequestDto){
-        // TODO - 로그인 후 토큰 발급 필요
-        UserDetailResponseDto response = null;
+    public ResponseEntity<TechnomadResponseDto<LoginResponseDto>> login(@Valid @RequestBody LoginRequestDto loginRequestDto){
+        // 로그인할 유저 정보가 없다면 등록
+        String accountId = loginRequestDto.getAccountId();
+        UserEntity user = userService.getUserEntity(accountId);
+        if(user == null){
+            user = userService.registerUser(accountId);
+        }
+
+        // 링크 초대를 통해 들어온 유저 체크
+        if(loginRequestDto.getCrewId() != null){
+            userCrewMappingService.registerUserCrewMapping(user.getUserId(), loginRequestDto.getCrewId());
+        }
+
+        // 유저 로그인 시 체크할 요소 리턴
+        LoginResponseDto response = commonService.getUserLoginData(accountId);
         return TechnomadResponseDto.of(response);
     }
 }

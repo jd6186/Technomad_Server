@@ -2,6 +2,7 @@ package technomad.api.server.technomad.api.user.dto.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -32,4 +33,12 @@ public class UserCrewMappingEntity {
     @Column(name = "UPDATED_DATETIME", nullable = false)
     private LocalDateTime updatedDatetime;
 
+    @Builder
+    public UserCrewMappingEntity(Long userCrewMappingId, Long crewId, Long userId, LocalDateTime createdDatetime, LocalDateTime updatedDatetime) {
+        this.userCrewMappingId = userCrewMappingId;
+        this.crewId = crewId;
+        this.userId = userId;
+        this.createdDatetime = createdDatetime;
+        this.updatedDatetime = updatedDatetime;
+    }
 }
