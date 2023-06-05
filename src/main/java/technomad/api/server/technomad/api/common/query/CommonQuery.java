@@ -18,6 +18,7 @@ public class CommonQuery {
     public LoginResponseDto findUserLoginData(String accountId){
         return jpaQueryFactory.select(new QLoginResponseDto(
                     userEntity.userId
+                    , userEntity.accountId
                     , userEntity.nickname
                     , userEntity.targetTrashLiter
                 ))
