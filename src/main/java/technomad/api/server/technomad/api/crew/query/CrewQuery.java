@@ -8,6 +8,7 @@ import technomad.api.server.technomad.api.crew.dto.entity.CrewFeedEntity;
 import technomad.api.server.technomad.api.crew.dto.request.CrewDataSearchRequestDto;
 import technomad.api.server.technomad.api.crew.dto.request.HotCrewSearchRequestDto;
 import technomad.api.server.technomad.api.plogging.dto.entity.ApprovalEntity;
+import technomad.api.server.technomad.api.plogging.dto.entity.PloggingEntity;
 import technomad.api.server.technomad.core.util.QueryDslUtil;
 
 import java.time.LocalDateTime;
@@ -30,6 +31,17 @@ public class CrewQuery {
                 .from(crewEntity)
                 .where(crewEntity.crewId.eq(crewId), crewEntity.isDelete.eq("N"))
                 .fetchOne();
+    }
+
+    public Integer findNowPloggingUserCount(Long crewId){
+        List<PloggingEntity> ploggingList = jpaQueryFactory.select(ploggingEntity)
+                .from(ploggingEntity)
+                .where(
+                        ploggingEntity.crewId.eq(crewId)
+                        , ploggingEntity.isDelete.eq("N") // 같은 크루이면서 플로깅이 종료되지 않은 것들
+                )
+                .fetch();
+        return (ploggingList != null) ? ploggingList.size() : 0;
     }
     public List<CrewEntity> findHotCrewList(HotCrewSearchRequestDto searchRequestDto){
         OrderSpecifier<LocalDateTime> order = (searchRequestDto.getOrderIsDescYn().equals("N")) ? crewEntity.createdDatetime.asc() : crewEntity.createdDatetime.desc();

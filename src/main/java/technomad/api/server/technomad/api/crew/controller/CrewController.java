@@ -31,6 +31,13 @@ public class CrewController {
         return TechnomadResponseDto.of(response);
     }
 
+    @Operation(summary = "현재 플로깅을 하고 있는 유저수 조회 API", description = "현재 플로깅을 하고 있는 유저수 조회 API")
+    @GetMapping("/now-user-count")
+    public ResponseEntity<TechnomadResponseDto<Integer>> nowPloggingUserCount(CrewDetailRequestDto crewDetailRequestDto){
+        int response = crewService.getNowPloggingUserCount(crewDetailRequestDto.getCrewId());
+        return TechnomadResponseDto.of(response);
+    }
+
     @Operation(summary = "핫한 크루목록 조회 API", description = "핫한 크루목록 조회 API")
     @GetMapping("/hot-crew-list")
     public ResponseEntity<TechnomadResponseDto<List<CrewEntity>>> getHotCrewList(HotCrewSearchRequestDto searchRequestDto) {

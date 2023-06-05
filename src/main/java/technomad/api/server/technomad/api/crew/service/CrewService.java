@@ -36,6 +36,10 @@ public class CrewService {
         return crewQuery.findCrewDetail(crewId);
     }
 
+    public Integer getNowPloggingUserCount(Long crewId){
+        return crewQuery.findNowPloggingUserCount(crewId);
+    }
+
     public List<CrewEntity> getHotCrewList(HotCrewSearchRequestDto searchRequestDto){
         return crewQuery.findHotCrewList(searchRequestDto);
     }
