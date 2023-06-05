@@ -1,9 +1,7 @@
 package technomad.api.server.technomad.api.plogging.dto.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 
 import java.time.LocalDateTime;
@@ -39,12 +37,24 @@ public class ApprovalEntity {
     private Integer rubbishBagLiter;
 
     @Basic
-    @Comment("종량제 쓰레기 수집 퍼센트")
-    @Column(name = "GARBAGE_PICKUP_CAPACITY_PERCENTAGE_TYPE_CODE", nullable = false)
-    private Integer garbagePickupCapacityPercentageTypeCode;
+    @Comment("종량제 쓰레기 수집 퍼센트(01: 0%, 02: 25%, 03: 50%, 04: 75%, 05: 100%)")
+    @Column(name = "GARBAGE_PICKUP_CAPACITY_PERCENTAGE_TYPE_CODE", nullable = false, length = 2)
+    private String garbagePickupCapacityPercentageTypeCode;
 
     @Basic
     @Comment("삭제 여부(Y/N)")
     @Column(name = "IS_DELETE", nullable = false, length = 1)
+    @Setter
     private String isDelete;
+
+    @Builder
+    public ApprovalEntity(Long approvalId, Long userId, Long approvalImgFileId, LocalDateTime approvalDatetime, Integer rubbishBagLiter, String garbagePickupCapacityPercentageTypeCode, String isDelete) {
+        this.approvalId = approvalId;
+        this.userId = userId;
+        this.approvalImgFileId = approvalImgFileId;
+        this.approvalDatetime = approvalDatetime;
+        this.rubbishBagLiter = rubbishBagLiter;
+        this.garbagePickupCapacityPercentageTypeCode = garbagePickupCapacityPercentageTypeCode;
+        this.isDelete = isDelete;
+    }
 }

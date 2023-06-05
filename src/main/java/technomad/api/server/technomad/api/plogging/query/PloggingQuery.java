@@ -20,4 +20,11 @@ public class PloggingQuery {
                         , ploggingEntity.isDelete.eq("N"))
                 .fetchOne();
     }
+
+    public PloggingEntity findByPloggingApprovalId(Long approvalId){
+        return jpaQueryFactory.select(ploggingEntity)
+                .from(ploggingEntity)
+                .where(ploggingEntity.approvalId.eq(approvalId))
+                .fetchOne();
+    }
 }
