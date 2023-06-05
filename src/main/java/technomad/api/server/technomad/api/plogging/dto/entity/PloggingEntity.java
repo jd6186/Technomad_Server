@@ -1,9 +1,7 @@
 package technomad.api.server.technomad.api.plogging.dto.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 
 import java.time.LocalDateTime;
@@ -20,27 +18,32 @@ public class PloggingEntity {
 
     @Basic
     @Comment("승인 고유번호")
-    @Column(name = "APPROVAL_ID", nullable = false)
+    @Setter
+    @Column(name = "APPROVAL_ID", nullable = true)
     private Long approvalId;
 
     @Basic
     @Comment("플로깅 이동 위치 이미지")
-    @Column(name = "WALKING_IMG_FILE_ID", nullable = false)
+    @Setter
+    @Column(name = "WALKING_IMG_FILE_ID", nullable = true)
     private Long walkingImgFileId;
 
     @Basic
     @Comment("플로깅 걸음수")
-    @Column(name = "WALKING_COUNT", nullable = false)
+    @Setter
+    @Column(name = "WALKING_COUNT", nullable = true)
     private Integer walkingCount;
 
     @Basic
     @Comment("플로깅 수집 쓰레기 리터수")
-    @Column(name = "TRASH_LITER", nullable = false)
+    @Setter
+    @Column(name = "TRASH_LITER", nullable = true)
     private Integer trashLiter;
 
     @Basic
     @Comment("플로깅 운동 거리")
-    @Column(name = "EXERCISE_DISTANCE", nullable = false)
+    @Setter
+    @Column(name = "EXERCISE_DISTANCE", nullable = true)
     private Integer exerciseDistance;
 
     @Basic
@@ -50,7 +53,7 @@ public class PloggingEntity {
 
     @Basic
     @Comment("크루 고유번호")
-    @Column(name = "CREW_ID", nullable = false)
+    @Column(name = "CREW_ID", nullable = true)
     private Long crewId;
 
     @Basic
@@ -60,16 +63,35 @@ public class PloggingEntity {
 
     @Basic
     @Comment("플로깅 종료일시")
-    @Column(name = "END_DATETIME", nullable = false)
+    @Setter
+    @Column(name = "END_DATETIME", nullable = true)
     private LocalDateTime endDatetime;
 
     @Basic
     @Comment("플로깅 상태(I:진행중, F: 종료)")
+    @Setter
     @Column(name = "PLOGGING_STATUS", nullable = false, length = 1)
     private String ploggingStatus;
 
     @Basic
     @Comment("삭제 여부(Y/N)")
     @Column(name = "IS_DELETE", nullable = false, length = 1)
+    @Setter
     private String isDelete;
+
+    @Builder
+    public PloggingEntity(Long ploggingId, Long approvalId, Long walkingImgFileId, Integer walkingCount, Integer trashLiter, Integer exerciseDistance, String workTypeCode, Long crewId, LocalDateTime startDatetime, LocalDateTime endDatetime, String ploggingStatus, String isDelete) {
+        this.ploggingId = ploggingId;
+        this.approvalId = approvalId;
+        this.walkingImgFileId = walkingImgFileId;
+        this.walkingCount = walkingCount;
+        this.trashLiter = trashLiter;
+        this.exerciseDistance = exerciseDistance;
+        this.workTypeCode = workTypeCode;
+        this.crewId = crewId;
+        this.startDatetime = startDatetime;
+        this.endDatetime = endDatetime;
+        this.ploggingStatus = ploggingStatus;
+        this.isDelete = isDelete;
+    }
 }

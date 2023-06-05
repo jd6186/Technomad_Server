@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import technomad.api.server.technomad.api.crew.dto.entity.CrewEntity;
 import technomad.api.server.technomad.api.user.dto.request.UserDetailRequestDto;
-import technomad.api.server.technomad.api.user.dto.response.UserTodayPloggingHistoryResponseDto;
+import technomad.api.server.technomad.api.user.dto.response.UserTodayPloggingResponseDto;
 import technomad.api.server.technomad.api.user.service.UserCrewMappingService;
 import technomad.api.server.technomad.api.user.service.UserService;
 import technomad.api.server.technomad.core.dto.base.TechnomadResponseDto;
@@ -28,8 +28,8 @@ public class UserController {
 
     @Operation(summary = "나의 활동이력 API - 홈진입 시 호출", description = "나의 활동이력 API")
     @GetMapping("/my-plogging-history")
-    public ResponseEntity<TechnomadResponseDto<UserTodayPloggingHistoryResponseDto>> myPloggingHistory(UserDetailRequestDto userDetailRequestDto) {
-        UserTodayPloggingHistoryResponseDto response = userService.getUserPloggingHistoryList(userDetailRequestDto.getUserId());
+    public ResponseEntity<TechnomadResponseDto<UserTodayPloggingResponseDto>> myPlogging(UserDetailRequestDto userDetailRequestDto) {
+        UserTodayPloggingResponseDto response = userService.getUserPloggingList(userDetailRequestDto.getUserId());
         return TechnomadResponseDto.of(response);
     }
 

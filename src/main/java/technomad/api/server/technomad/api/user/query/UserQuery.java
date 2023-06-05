@@ -3,8 +3,8 @@ package technomad.api.server.technomad.api.user.query;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Component;
 import technomad.api.server.technomad.api.user.dto.entity.UserEntity;
-import technomad.api.server.technomad.api.user.dto.response.QUserTodayPloggingHistoryResponseDto;
-import technomad.api.server.technomad.api.user.dto.response.UserTodayPloggingHistoryResponseDto;
+import technomad.api.server.technomad.api.user.dto.response.QUserTodayPloggingResponseDto;
+import technomad.api.server.technomad.api.user.dto.response.UserTodayPloggingResponseDto;
 import technomad.api.server.technomad.core.util.CommonUtil;
 
 import static technomad.api.server.technomad.api.plogging.dto.entity.QApprovalEntity.approvalEntity;
@@ -27,8 +27,8 @@ public class UserQuery {
                 .fetchOne();
     }
 
-    public UserTodayPloggingHistoryResponseDto findTodayUserPloggingHistory(Long userId){
-        return jpaQueryFactory.select(new QUserTodayPloggingHistoryResponseDto(
+    public UserTodayPloggingResponseDto findTodayUserPlogging(Long userId){
+        return jpaQueryFactory.select(new QUserTodayPloggingResponseDto(
                         ploggingEntity.walkingCount.sum()
                         , ploggingEntity.trashLiter.sum()
                         , userEntity.targetTrashLiter
