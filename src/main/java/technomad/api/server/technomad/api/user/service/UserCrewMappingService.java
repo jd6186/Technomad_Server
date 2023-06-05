@@ -1,10 +1,13 @@
 package technomad.api.server.technomad.api.user.service;
 
 import org.springframework.stereotype.Service;
+import technomad.api.server.technomad.api.crew.dto.entity.CrewEntity;
 import technomad.api.server.technomad.api.user.dto.entity.UserCrewMappingEntity;
 import technomad.api.server.technomad.api.user.query.UserCrewMappingQuery;
 import technomad.api.server.technomad.api.user.repository.UserCrewMappingRepository;
 import technomad.api.server.technomad.core.util.CommonUtil;
+
+import java.util.List;
 
 @Service
 public class UserCrewMappingService {
@@ -16,11 +19,11 @@ public class UserCrewMappingService {
         this.userCrewMappingRepository = userCrewMappingRepository;
     }
 
-    public UserCrewMappingEntity save(UserCrewMappingEntity userCrewMappingEntity){
-        return userCrewMappingRepository.save(userCrewMappingEntity);
+    public void save(UserCrewMappingEntity userCrewMappingEntity){
+        userCrewMappingRepository.save(userCrewMappingEntity);
     }
 
-    public UserCrewMappingEntity registerUserCrewMapping(Long userId, Long crewId){
+    public void registerUserCrewMapping(Long userId, Long crewId){
         UserCrewMappingEntity userCrewMappingEntity = UserCrewMappingEntity
                 .builder()
                 .userId(userId)
@@ -28,6 +31,10 @@ public class UserCrewMappingService {
                 .createdDatetime(CommonUtil.nowLocalDateTime())
                 .updatedDatetime(CommonUtil.nowLocalDateTime())
                 .build();
-        return save(userCrewMappingEntity);
+        save(userCrewMappingEntity);
+    }
+
+    public List<CrewEntity> getUserCrewList(Long userId){
+        return userCrewMappingQuery.findUserCrewList(userId);
     }
 }

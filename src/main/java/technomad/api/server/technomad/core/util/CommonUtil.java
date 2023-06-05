@@ -40,6 +40,15 @@ public class CommonUtil {
         return LocalDateTime.now(seoulZoneId);
     }
 
+    public static LocalDateTime nowStartLocalDateTime(){
+        LocalDateTime now = nowLocalDateTime();
+        return now.with(LocalDateTime.of(now.getYear(), now.getMonth(), now.getDayOfMonth(), 0, 0, 0));
+    }
+
+    public static LocalDateTime nowEndLocalDateTime(){
+        LocalDateTime now = nowLocalDateTime();
+        return now.with(LocalDateTime.of(now.getYear(), now.getMonth(), now.getDayOfMonth(), 23, 59, 59));
+    }
 
     public static boolean isNumeric(String s) {
         if (s == null) return false;

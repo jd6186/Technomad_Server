@@ -49,22 +49,7 @@ public class QueryDslUtil {
         return Expressions.allOf(isStartColumnGoeStartDate, isStartColumnLoeEndDate, isEndColumnGoeStartDate, isEndColumnLoeEndDate);
     }
 
-    // ########################### 날짜 비교 ###########################
-    // Date 날짜 범위 비교
-    public static BooleanExpression localDateRangeCheck(DateTimePath<LocalDateTime> column, LocalDate startDatetime, LocalDate endDatetime){
-        if(column == null || startDatetime == null || endDatetime == null) return null;
-        BooleanExpression isGoeStartDate = column.goe(startDatetime.atStartOfDay());
-        BooleanExpression isLoeEndDate = column.loe(endDatetime.atTime(LocalTime.MAX));
-
-        return Expressions.allOf(isGoeStartDate, isLoeEndDate);
-    }
-
-    // DateTime 날짜 범위 비교
-    public static BooleanExpression localDateTimeRangeCheck(DateTimePath<LocalDateTime> column, LocalDateTime startDatetime, LocalDateTime endDatetime){
-        if(column == null || startDatetime == null || endDatetime == null) return null;
-        BooleanExpression isGoeStartDate = column.goe(startDatetime);
-        BooleanExpression isLoeEndDate = column.loe(endDatetime);
-
-        return Expressions.allOf(isGoeStartDate, isLoeEndDate);
+    public static Long offsetCount(int pageNumber, int pageSize){
+        return (long) ((pageNumber-1) * pageSize);
     }
 }

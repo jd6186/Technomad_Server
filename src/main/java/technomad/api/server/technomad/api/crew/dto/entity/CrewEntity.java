@@ -52,4 +52,14 @@ public class CrewEntity {
     @Comment("크루 최대 인원")
     @Column(name = "MAX_COUNT", nullable = false)
     private Integer maxCount;
+
+    @Basic
+    @Comment("크루 삭제여부(Y/N)")
+    @Column(name = "IS_DELETE", nullable = false)
+    private String isDelete;
+
+    @Basic
+    @Comment("핫크루 선정 여부(Y/N)")
+    @Column(name = "IS_HOT_CREW", nullable = false)
+    private String isHotCrew;
 }

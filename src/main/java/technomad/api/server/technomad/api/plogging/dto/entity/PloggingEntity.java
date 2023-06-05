@@ -49,6 +49,11 @@ public class PloggingEntity {
     private String workTypeCode;
 
     @Basic
+    @Comment("크루 고유번호")
+    @Column(name = "CREW_ID", nullable = false)
+    private Long crewId;
+
+    @Basic
     @Comment("플로깅 시작일시 - 시작일이 곧 작업일")
     @Column(name = "START_DATETIME", nullable = false)
     private LocalDateTime startDatetime;

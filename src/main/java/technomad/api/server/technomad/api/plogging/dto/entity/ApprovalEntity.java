@@ -1,4 +1,4 @@
-package technomad.api.server.technomad.api.invite.dto.entity;
+package technomad.api.server.technomad.api.plogging.dto.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;

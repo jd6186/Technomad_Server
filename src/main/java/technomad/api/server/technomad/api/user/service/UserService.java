@@ -2,6 +2,7 @@ package technomad.api.server.technomad.api.user.service;
 
 import org.springframework.stereotype.Service;
 import technomad.api.server.technomad.api.user.dto.entity.UserEntity;
+import technomad.api.server.technomad.api.user.dto.response.UserTodayPloggingHistoryResponseDto;
 import technomad.api.server.technomad.api.user.query.UserQuery;
 import technomad.api.server.technomad.api.user.repository.UserRepository;
 import technomad.api.server.technomad.core.util.CommonUtil;
@@ -32,5 +33,9 @@ public class UserService {
 
     public UserEntity getUserEntity(String accountId){
         return userQuery.findByAccountId(accountId);
+    }
+
+    public UserTodayPloggingHistoryResponseDto getUserPloggingHistoryList(Long userId){
+        return userQuery.findTodayUserPloggingHistory(userId);
     }
 }
