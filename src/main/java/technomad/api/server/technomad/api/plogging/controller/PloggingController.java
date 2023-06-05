@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import technomad.api.server.technomad.api.plogging.dto.entity.ApprovalEntity;
@@ -30,7 +31,7 @@ public class PloggingController {
     }
 
     @Operation(summary = "플로깅 인증 성공 시 플로깅 이력 수정 API", description = "인증 완료 후 로컬에 보관된 플로깅 이력을 저장할 API")
-    @PostMapping
+    @PutMapping
     public ResponseEntity<TechnomadResponseDto<PloggingEntity>> updatePlogging(PloggingUpdateRequestDto ploggingUpdateRequestDto){
         PloggingEntity ploggingEntity = ploggingService.getPloggingById(ploggingUpdateRequestDto.getPloggingId());
         PloggingEntity response = ploggingService.savePlogging(ploggingEntity);
