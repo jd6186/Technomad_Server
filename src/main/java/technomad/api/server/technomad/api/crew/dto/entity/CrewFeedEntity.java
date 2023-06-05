@@ -1,9 +1,7 @@
 package technomad.api.server.technomad.api.crew.dto.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 
 import java.time.LocalDateTime;
@@ -31,11 +29,13 @@ public class CrewFeedEntity {
     @Basic
     @Comment("피드 제목")
     @Column(name = "FEED_TITLE", nullable = false, length = 255)
+    @Setter
     private String feedTitle;
 
     @Basic
     @Comment("피드 내용")
     @Column(name = "FEED_CONTENT", nullable = false, columnDefinition = "text")
+    @Setter
     private String feedContent;
 
     @Basic
@@ -46,10 +46,31 @@ public class CrewFeedEntity {
     @Basic
     @Comment("피드 수정일시")
     @Column(name = "UPDATED_DATETIME", nullable = false)
+    @Setter
     private LocalDateTime updatedDatetime;
 
     @Basic
     @Comment("공지글 여부(Y/N)")
     @Column(name = "IS_ANNOUNCEMENT", nullable = false, length = 1)
+    @Setter
     private String isAnnouncement;
+
+    @Basic
+    @Comment("삭제 여부(Y/N)")
+    @Column(name = "IS_DELETE", nullable = false, length = 1)
+    @Setter
+    private String isDelete;
+
+    @Builder
+    public CrewFeedEntity(Long crewFeedId, Long crewId, Long userId, String feedTitle, String feedContent, LocalDateTime createdDatetime, LocalDateTime updatedDatetime, String isAnnouncement, String isDelete) {
+        this.crewFeedId = crewFeedId;
+        this.crewId = crewId;
+        this.userId = userId;
+        this.feedTitle = feedTitle;
+        this.feedContent = feedContent;
+        this.createdDatetime = createdDatetime;
+        this.updatedDatetime = updatedDatetime;
+        this.isAnnouncement = isAnnouncement;
+        this.isDelete = isDelete;
+    }
 }

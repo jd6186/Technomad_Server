@@ -42,4 +42,9 @@ public class ApprovalEntity {
     @Comment("종량제 쓰레기 수집 퍼센트")
     @Column(name = "GARBAGE_PICKUP_CAPACITY_PERCENTAGE_TYPE_CODE", nullable = false)
     private Integer garbagePickupCapacityPercentageTypeCode;
+
+    @Basic
+    @Comment("삭제 여부(Y/N)")
+    @Column(name = "IS_DELETE", nullable = false, length = 1)
+    private String isDelete;
 }

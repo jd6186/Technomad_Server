@@ -28,7 +28,7 @@ public class CrewQuery {
     public CrewEntity findCrewDetail(Long crewId){
         return jpaQueryFactory.select(crewEntity)
                 .from(crewEntity)
-                .where(crewEntity.crewId.eq(crewId))
+                .where(crewEntity.crewId.eq(crewId), crewEntity.isDelete.eq("N"))
                 .fetchOne();
     }
     public List<CrewEntity> findHotCrewList(HotCrewSearchRequestDto searchRequestDto){
@@ -46,11 +46,18 @@ public class CrewQuery {
         OrderSpecifier<LocalDateTime> order = (searchRequestDto.getOrderIsDescYn().equals("N")) ? crewEntity.createdDatetime.asc() : crewEntity.createdDatetime.desc();
         return jpaQueryFactory.select(crewFeedEntity)
                 .from(crewFeedEntity)
-                .where(crewFeedEntity.crewId.eq(searchRequestDto.getCrewId()))
+                .where(crewFeedEntity.crewId.eq(searchRequestDto.getCrewId()), crewFeedEntity.isDelete.eq("N"))
                 .offset(QueryDslUtil.offsetCount(searchRequestDto.getPageNumber(), searchRequestDto.getPageSize()))
                 .limit(searchRequestDto.getPageSize())
                 .orderBy(order)
                 .fetch();
+    }
+
+    public CrewFeedEntity findCrewFeedDetail(Long crewFeedId){
+        return jpaQueryFactory.select(crewFeedEntity)
+                .from(crewFeedEntity)
+                .where(crewFeedEntity.crewFeedId.eq(crewFeedId), crewFeedEntity.isDelete.eq("N"))
+                .fetchOne();
     }
 
     public List<ApprovalEntity> findCrewApprovalList(CrewDataSearchRequestDto searchRequestDto){

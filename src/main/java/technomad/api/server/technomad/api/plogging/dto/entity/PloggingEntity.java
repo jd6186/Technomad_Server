@@ -62,4 +62,9 @@ public class PloggingEntity {
     @Comment("플로깅 종료일시")
     @Column(name = "END_DATETIME", nullable = false)
     private LocalDateTime endDatetime;
+
+    @Basic
+    @Comment("삭제 여부(Y/N)")
+    @Column(name = "IS_DELETE", nullable = false, length = 1)
+    private String isDelete;
 }
