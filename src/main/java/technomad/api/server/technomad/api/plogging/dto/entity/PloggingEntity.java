@@ -64,6 +64,11 @@ public class PloggingEntity {
     private LocalDateTime endDatetime;
 
     @Basic
+    @Comment("플로깅 상태(I:진행중, F: 종료)")
+    @Column(name = "PLOGGING_STATUS", nullable = false, length = 1)
+    private String ploggingStatus;
+
+    @Basic
     @Comment("삭제 여부(Y/N)")
     @Column(name = "IS_DELETE", nullable = false, length = 1)
     private String isDelete;

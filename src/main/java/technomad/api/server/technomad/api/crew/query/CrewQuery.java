@@ -38,7 +38,7 @@ public class CrewQuery {
                 .from(ploggingEntity)
                 .where(
                         ploggingEntity.crewId.eq(crewId)
-                        , ploggingEntity.isDelete.eq("N") // 같은 크루이면서 플로깅이 종료되지 않은 것들
+                        , ploggingEntity.ploggingStatus.eq("I") // 같은 크루이면서 플로깅 중인 것들
                 )
                 .fetch();
         return (ploggingList != null) ? ploggingList.size() : 0;

@@ -56,4 +56,6 @@ public class CommonController {
         LoginResponseDto response = commonService.getUserLoginData(accountId);
         return TechnomadResponseDto.of(response);
     }
+
+    // TODO - 파일 업로드 기능 제작
 }

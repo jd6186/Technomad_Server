@@ -39,10 +39,14 @@ public class UserQuery {
                 .on(
                         ploggingEntity.approvalId.eq(approvalEntity.approvalId)
                         , ploggingEntity.startDatetime.between(CommonUtil.nowStartLocalDateTime(), CommonUtil.nowEndLocalDateTime())
+                        , ploggingEntity.isDelete.eq("N")
                 )
                 .innerJoin(userEntity)
                 .on(approvalEntity.userId.eq(userEntity.userId))
-                .where(approvalEntity.userId.eq(userId))
+                .where(
+                        approvalEntity.userId.eq(userId)
+                        , approvalEntity.isDelete.eq("N")
+                )
                 .fetchOne();
     }
 }
