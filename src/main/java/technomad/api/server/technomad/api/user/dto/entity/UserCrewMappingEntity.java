@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Comment;
 
 import java.time.LocalDateTime;
 
@@ -14,22 +15,27 @@ import java.time.LocalDateTime;
 @Table(name = "TB_USER_CREW_MAPPING")
 public class UserCrewMappingEntity {
     @Id
+    @Comment("유저 크루 맵핑 고유번호")
     @Column(name = "USER_CREW_MAPPING_ID", nullable = false)
     private Long userCrewMappingId;
 
     @Basic
+    @Comment("크루 고유번호")
     @Column(name = "CREW_ID", nullable = false)
     private Long crewId;
 
     @Basic
+    @Comment("유저 고유번호")
     @Column(name = "USER_ID", nullable = false)
     private Long userId;
 
     @Basic
+    @Comment("맵핑 생성일시")
     @Column(name = "CREATED_DATETIME", nullable = false)
     private LocalDateTime createdDatetime;
 
     @Basic
+    @Comment("맵핑 수정일시")
     @Column(name = "UPDATED_DATETIME", nullable = false)
     private LocalDateTime updatedDatetime;
 

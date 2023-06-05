@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Comment;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -11,10 +12,12 @@ import lombok.NoArgsConstructor;
 @Table(name = "TB_CREW_HASH_TAG")
 public class CrewHashTagEntity {
     @Id
+    @Comment("크루 고유번호")
     @Column(name = "CREW_ID")
     private Long crewId;
 
     @Basic
+    @Comment("해쉬태그")
     @Column(name = "HASH_TAG_NAME")
     private String hashTagName;
 }
