@@ -25,8 +25,8 @@ public class CommonUtil {
         return ZonedDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm_ss")) + "_" + originalName;
     }
 
-    public static String getNowDate(){
-        return LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    public static String getNowDatetimeString(){
+        return LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
     }
 
     public static Timestamp dateFormatChange(String date){

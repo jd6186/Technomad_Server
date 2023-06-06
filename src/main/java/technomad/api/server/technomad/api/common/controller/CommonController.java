@@ -4,8 +4,15 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import technomad.api.server.technomad.api.common.dto.entity.FileEntity;
+import technomad.api.server.technomad.api.common.dto.request.FileDetailRequestDto;
 import technomad.api.server.technomad.api.common.dto.request.LoginRequestDto;
 import technomad.api.server.technomad.api.common.dto.response.LoginResponseDto;
 import technomad.api.server.technomad.api.common.service.CommonService;
@@ -29,6 +36,7 @@ public class CommonController {
         this.userCrewMappingService = userCrewMappingService;
     }
 
+    @Deprecated
     @Operation(summary = "크루 초대 수락 API", description = "초대 수락 API - 크루 상세 페이지로 리다이렉트 필요")
     @GetMapping("/invite/access")
     public void inviteAccess(HttpServletResponse response) throws IOException {
@@ -57,5 +65,35 @@ public class CommonController {
         return TechnomadResponseDto.of(response);
     }
 
-    // TODO - 파일 업로드 기능 제작
+    @Operation(summary = "파일 업로드 기능 제작", description = "공통으로 사용할 파일 업로드 기능 제작")
+    @GetMapping(value = "/file")
+    public ResponseEntity<TechnomadResponseDto<FileEntity>> getFile(FileDetailRequestDto fileDetailRequestDto) {
+        FileEntity response = commonService.getFileEntityById(fileDetailRequestDto.getFileId());
+        return TechnomadResponseDto.of(response);
+    }
+
+    @Operation(summary = "파일 다운로드 기능 제작", description = "공통으로 사용할 파일 다운로드 기능 제작")
+    @GetMapping(value = "/file/download")
+    public ResponseEntity<TechnomadResponseDto<FileEntity>> downloadFile(FileDetailRequestDto fileDetailRequestDto) {
+        FileEntity fileEntity = commonService.getFileEntityById(fileDetailRequestDto.getFileId());
+        Resource resource = commonService.getFileResource(fileEntity.getFilePath());
+
+        if (resource.exists()) {
+            // 파일이 존재하면 다운로드 처리
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            headers.setContentDispositionFormData("attachment", fileEntity.getOriginName());
+            return TechnomadResponseDto.of(resource, headers);
+        } else {
+            // 파일이 존재하지 않으면 404 에러 반환
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    @Operation(summary = "파일 업로드 기능 제작", description = "공통으로 사용할 파일 업로드 기능 제작")
+    @PostMapping(value = "/file/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<TechnomadResponseDto<FileEntity>> uploadFile(@RequestParam("file") MultipartFile file) {
+        FileEntity response = commonService.uploadFile(file);
+        return TechnomadResponseDto.of(response);
+    }
 }

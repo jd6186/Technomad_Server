@@ -82,6 +82,9 @@ technomad_db:
   db_password: technomad!@
   option: useSSL=false&connectTimeout=2000&socketTimeout=600000&useUnicode=true&characterEncoding=UTF-8&rewriteBatchedStatements=true
 
+upload:
+  dir: static/files
+  base_url: localhost:8080
 
 # SQL ?? ?????? ??? ??
 decorator:

@@ -2,6 +2,7 @@ package technomad.api.server.technomad.api.common.dto.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
@@ -53,4 +54,16 @@ public class FileEntity {
     @Comment("파일 수정일시")
     @Column(name = "UPDATED_DATETIME", nullable = false)
     private LocalDateTime updatedDatetime;
+
+    @Builder
+    public FileEntity(Long fileId, String originName, String baseUrl, String filePath, String saveName, String fileExtension, LocalDateTime createdDatetime, LocalDateTime updatedDatetime) {
+        this.fileId = fileId;
+        this.originName = originName;
+        this.baseUrl = baseUrl;
+        this.filePath = filePath;
+        this.saveName = saveName;
+        this.fileExtension = fileExtension;
+        this.createdDatetime = createdDatetime;
+        this.updatedDatetime = updatedDatetime;
+    }
 }

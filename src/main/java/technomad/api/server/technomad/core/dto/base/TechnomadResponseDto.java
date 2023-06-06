@@ -4,6 +4,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import technomad.api.server.technomad.core.code.ErrorCode;
 
@@ -35,6 +38,11 @@ public class TechnomadResponseDto<T> {
                 .errorReason(ErrorCode.SUCCESS.getDescription())
                 .build();
         return ResponseEntity.ok(response);
+
+    }
+
+    public static <T> ResponseEntity<TechnomadResponseDto<T>> of(Resource resource, HttpHeaders headers){
+        return new ResponseEntity(resource, headers, HttpStatus.OK);
 
     }
 
