@@ -11,6 +11,7 @@ import org.hibernate.annotations.Comment;
 @Entity
 @Table(name = "TB_CREW_HASH_TAG")
 public class CrewHashTagEntity {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Comment("크루 고유번호")
     @Column(name = "CREW_ID")

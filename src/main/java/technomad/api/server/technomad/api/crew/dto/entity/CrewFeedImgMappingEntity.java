@@ -11,6 +11,7 @@ import org.hibernate.annotations.Comment;
 @Entity
 @Table(name = "TB_CREW_FEED_IMG_MAPPING")
 public class CrewFeedImgMappingEntity {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Comment("크루 피드 고유번호")
     @Column(name = "CREW_FEED_ID")

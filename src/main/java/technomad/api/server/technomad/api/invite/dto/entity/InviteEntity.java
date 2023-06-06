@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "TB_INVITE")
 public class InviteEntity {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Comment("초대 고유번호")
     @Column(name = "INVITE_ID", nullable = false)

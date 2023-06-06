@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "TB_FILE")
 public class FileEntity {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Comment("파일 고유번호")
     @Column(name = "FILE_ID", nullable = false)

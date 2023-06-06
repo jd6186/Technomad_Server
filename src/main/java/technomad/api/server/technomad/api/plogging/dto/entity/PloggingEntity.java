@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "TB_PLOGGING")
 public class PloggingEntity {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Comment("플로깅 고유번호")
     @Column(name = "PLOGGING_ID", nullable = false)

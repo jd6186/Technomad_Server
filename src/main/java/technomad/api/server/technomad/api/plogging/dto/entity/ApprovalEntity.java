@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "TB_APPROVAL")
 public class ApprovalEntity {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Comment("인증 고유번호")
     @Column(name = "APPROVAL_ID", nullable = false)

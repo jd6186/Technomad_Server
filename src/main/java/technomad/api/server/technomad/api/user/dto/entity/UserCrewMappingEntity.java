@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "TB_USER_CREW_MAPPING")
 public class UserCrewMappingEntity {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Comment("유저 크루 맵핑 고유번호")
     @Column(name = "USER_CREW_MAPPING_ID", nullable = false)
