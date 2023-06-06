@@ -3,15 +3,17 @@ package technomad.api.server.technomad.api.user.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import technomad.api.server.technomad.api.crew.dto.entity.CrewEntity;
+import technomad.api.server.technomad.api.user.dto.entity.UserCrewMappingEntity;
+import technomad.api.server.technomad.api.user.dto.request.UserCrewMappingDetailRequestDto;
+import technomad.api.server.technomad.api.user.dto.request.UserCrewMappingRegisterRequestDto;
 import technomad.api.server.technomad.api.user.dto.request.UserDetailRequestDto;
 import technomad.api.server.technomad.api.user.dto.response.UserTodayPloggingResponseDto;
 import technomad.api.server.technomad.api.user.service.UserCrewMappingService;
 import technomad.api.server.technomad.api.user.service.UserService;
 import technomad.api.server.technomad.core.dto.base.TechnomadResponseDto;
+import technomad.api.server.technomad.core.util.CommonUtil;
 
 import java.util.List;
 
@@ -37,6 +39,33 @@ public class UserController {
     @GetMapping("/my-crew")
     public ResponseEntity<TechnomadResponseDto<List<CrewEntity>>> getMyCrew(UserDetailRequestDto userDetailRequestDto) {
         List<CrewEntity> response = userCrewMappingService.getUserCrewList(userDetailRequestDto.getUserId());
+        return TechnomadResponseDto.of(response);
+    }
+
+    // 회원 크루 관리 ------------------------------------------------------------------------
+    @Operation(summary = "크루 회원가입 API", description = "크루 회원가입 API")
+    @PostMapping("/crew-member")
+    public ResponseEntity<TechnomadResponseDto<UserCrewMappingEntity>> registerCrewMember(UserCrewMappingRegisterRequestDto userCrewMappingRegisterRequestDto) {
+        UserCrewMappingEntity oldUserCrewMappingEntity = userCrewMappingService.getUserCrewMappingEntityByUserCrewMappingDetailRequestDto(userCrewMappingRegisterRequestDto);
+        UserCrewMappingEntity response;
+        if(oldUserCrewMappingEntity == null){
+            UserCrewMappingEntity userCrewMappingEntity = userCrewMappingRegisterRequestDto.getUserCrewMappingEntity();
+            response = userCrewMappingService.save(userCrewMappingEntity);
+        } else {
+            oldUserCrewMappingEntity.setIsDelete("N");
+            oldUserCrewMappingEntity.setUpdatedDatetime(CommonUtil.nowLocalDateTime());
+            response = userCrewMappingService.save(oldUserCrewMappingEntity);
+        }
+        return TechnomadResponseDto.of(response);
+    }
+    
+    @Operation(summary = "크루 회원탈퇴 API", description = "크루 회원탈퇴 API")
+    @DeleteMapping("/crew-member")
+    public ResponseEntity<TechnomadResponseDto<UserCrewMappingEntity>> deleteCrewMember(UserCrewMappingDetailRequestDto userCrewMappingDetailRequestDto) {
+        UserCrewMappingEntity userCrewMappingEntity = userCrewMappingService.getUserCrewMappingEntityById(userCrewMappingDetailRequestDto.getUserCrewMappingId());
+        userCrewMappingEntity.setIsDelete("Y");
+        userCrewMappingEntity.setUpdatedDatetime(CommonUtil.nowLocalDateTime());
+        UserCrewMappingEntity response = userCrewMappingService.save(userCrewMappingEntity);
         return TechnomadResponseDto.of(response);
     }
 }

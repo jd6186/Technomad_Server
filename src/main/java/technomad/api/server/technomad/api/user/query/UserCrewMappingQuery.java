@@ -3,6 +3,8 @@ package technomad.api.server.technomad.api.user.query;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Component;
 import technomad.api.server.technomad.api.crew.dto.entity.CrewEntity;
+import technomad.api.server.technomad.api.user.dto.entity.UserCrewMappingEntity;
+import technomad.api.server.technomad.api.user.dto.request.UserCrewMappingRegisterRequestDto;
 
 import java.util.List;
 
@@ -26,5 +28,15 @@ public class UserCrewMappingQuery {
                 .where(userCrewMappingEntity.userId.eq(userId))
                 .orderBy(userCrewMappingEntity.createdDatetime.desc())
                 .fetch();
+    }
+
+    public UserCrewMappingEntity findUserCrewMappingEntityByUserCrewMappingDetailRequestDto(UserCrewMappingRegisterRequestDto requestDto){
+        return jpaQueryFactory.select(userCrewMappingEntity)
+                .from(userCrewMappingEntity)
+                .where(
+                        userCrewMappingEntity.userId.eq(requestDto.getUserId())
+                        , userCrewMappingEntity.crewId.eq(requestDto.getCrewId())
+                )
+                .fetchOne();
     }
 }

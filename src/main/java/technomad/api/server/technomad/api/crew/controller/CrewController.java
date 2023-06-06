@@ -24,6 +24,7 @@ public class CrewController {
         this.crewService = crewService;
     }
 
+    // 크루 관리 ------------------------------------------------------------------------
     @Operation(summary = "크루 상세 정보 조회 API", description = "크루 상세 정보 조회 API")
     @GetMapping
     public ResponseEntity<TechnomadResponseDto<CrewEntity>> getCrewDetail(CrewDetailRequestDto crewDetailRequestDto) {
