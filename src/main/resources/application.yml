@@ -84,6 +84,10 @@ technomad_db:
 
 upload:
   dir: static/files
+  learning_img: static/learning_img
+  learning_preprocessed_img: static/learning_preprocessed_img
+  validation_img: static/validation_img
+  validation_preprocessed_img: static/validation_preprocessed_img
   base_url: localhost:8080
 
 # SQL ?? ?????? ??? ??
