@@ -2,11 +2,9 @@ package technomad.api.server.technomad.core.big_data.image_analysis;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.util.FileCopyUtils;
 
 import javax.imageio.ImageIO;
-import java.awt.Graphics2D;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -30,12 +28,12 @@ public class ImagePreprocessor {
     private final ImageLoader imageLoader;
     public ImagePreprocessor(ImageLoader imageLoader) throws IOException {
         this.imageLoader = imageLoader;
-        // 1. 훈련 이미지 데이터셋 주입
-        this.learningImages = this.imageLoader.getImageFiles(learningImagePath);
-        // 2. 검증 이미지 데이터셋 주입
-        this.validationImages = this.imageLoader.getImageFiles(validationImagePath);
+//        // 1. 훈련 이미지 데이터셋 주입
+//        this.learningImages = this.imageLoader.getImageFiles(learningImagePath);
+//        // 2. 검증 이미지 데이터셋 주입
+//        this.validationImages = this.imageLoader.getImageFiles(validationImagePath);
         // 3. 기본적으로 가지고 있는 이미지 전처리
-        preprocessMultiImage();
+//        preprocessMultiImage();
     }
 
     /**
